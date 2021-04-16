@@ -16,12 +16,8 @@ public class LoginService {
 
     public boolean doLogin(String username, String password) {
         Optional<User> user = userService.searchByUsernameAndPassword(username, password);
-        if (user.isPresent()) {
-            loggedUser = user.get();
-            return true;
-        }
-
-        return false;
+        loggedUser = user.orElseGet(null);
+        return user.isPresent();
     }
 
     public void doLogout() {

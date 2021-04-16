@@ -1,7 +1,6 @@
 package br.com.rodrigoluisfaria.petstore.service;
 
 import br.com.rodrigoluisfaria.petstore.dto.User;
-import br.com.rodrigoluisfaria.petstore.exception.MissingInformationException;
 import br.com.rodrigoluisfaria.petstore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +15,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public User create(User user) {
-        if (user.getUsername() == null || user.getUsername().isEmpty()) {
-            throw new MissingInformationException(User.class, "username");
-        }
         return userRepository.create(user);
     }
 
