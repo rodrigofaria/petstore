@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class Pet {
 
-    private Integer id;
+    private String uuid;
     private Category category;
     private String name;
     private List<String> photoUrls;

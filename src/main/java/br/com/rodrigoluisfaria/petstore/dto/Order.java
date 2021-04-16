@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class Order {
 
-    private Integer id;
-    private Integer petId;
+    private String uuid;
+    private String petUUID;
     private Integer quantity;
     private String shipDate;
     private String status; //TODO: change to ENUM

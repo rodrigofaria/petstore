@@ -17,7 +17,6 @@ public class UserRepository {
     private final Map<String, User> myDatabase = new HashMap<>();
 
     public User create(User user) {
-        user.setId(generateIdentifier.generateId());
         myDatabase.put(user.getUsername(), user);
         return user;
     }

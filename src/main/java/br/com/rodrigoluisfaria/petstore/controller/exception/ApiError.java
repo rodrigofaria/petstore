@@ -1,4 +1,4 @@
-package br.com.rodrigoluisfaria.petstore.exception;
+package br.com.rodrigoluisfaria.petstore.controller.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

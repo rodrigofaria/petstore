@@ -2,11 +2,12 @@ package br.com.rodrigoluisfaria.petstore.controller;
 
 import br.com.rodrigoluisfaria.petstore.dto.User;
 import br.com.rodrigoluisfaria.petstore.service.LoginService;
-import br.com.rodrigoluisfaria.petstore.service.UserService;
+import br.com.rodrigoluisfaria.petstore.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,13 +16,13 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private LoginService loginService;
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<User> create(@RequestBody @Valid User user) {
         User createdUser = userService.create(user);
         return ResponseEntity.status(201).body(createdUser);
     }

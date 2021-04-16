@@ -1,4 +1,4 @@
-package br.com.rodrigoluisfaria.petstore.exception;
+package br.com.rodrigoluisfaria.petstore.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
