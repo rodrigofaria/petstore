@@ -2,34 +2,28 @@ package br.com.rodrigoluisfaria.petstore.service;
 
 import br.com.rodrigoluisfaria.petstore.dto.User;
 import br.com.rodrigoluisfaria.petstore.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public User create(User user) {
         return userRepository.create(user);
     }
 
     public void create(List<User> users) {
-        for (User user : users) {
-            create(user);
-        }
+        users.forEach(user -> create(user));
     }
 
     public Optional<User> findByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
-            return Optional.of(user);
-        }
-        return Optional.empty();
+        return userRepository.findByUsername(username);
     }
 
     public void delete(String username) {
@@ -42,11 +36,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public Optional<User> searchByUsernameAndPassword(String username, String password) {
-        User user = userRepository.searchByUsernameAndPassword(username, password);
-        if (user != null) {
-            return Optional.of(user);
-        }
-
-        return Optional.empty();
+        return userRepository.searchByUsernameAndPassword(username, password);
     }
 }

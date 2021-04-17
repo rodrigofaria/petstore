@@ -1,44 +1,19 @@
 package br.com.rodrigoluisfaria.petstore.repository;
 
 import br.com.rodrigoluisfaria.petstore.dto.User;
-import br.com.rodrigoluisfaria.petstore.util.RandomGenerateIdentifier;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
-@Repository
-public class UserRepository {
+public interface UserRepository {
 
-    @Autowired
-    private RandomGenerateIdentifier generateIdentifier;
+    User create(User user);
 
-    private final Map<String, User> myDatabase = new HashMap<>();
+    Optional<User> findByUsername(String username);
 
-    public User create(User user) {
-        myDatabase.put(user.getUsername(), user);
-        return user;
-    }
+    void delete(String username);
 
-    public User findByUsername(String username) {
-        return myDatabase.get(username);
-    }
+    void update(User user);
 
-    public void delete(String username) {
-        myDatabase.remove(username);
-    }
+    Optional<User> searchByUsernameAndPassword(String username, String password);
 
-    public void update(User user) {
-        myDatabase.put(user.getUsername(), user);
-    }
-
-    public User searchByUsernameAndPassword(String username, String password) {
-        User user = myDatabase.get(username);
-        if (user != null && !user.getPassword().equals(password)) {
-            return null;
-        }
-
-        return user;
-    }
 }
