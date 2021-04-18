@@ -1,4 +1,4 @@
-package br.com.rodrigoluisfaria.petstore.dto;
+package br.com.rodrigoluisfaria.petstore.controller.dto;
 
 import lombok.Data;
 

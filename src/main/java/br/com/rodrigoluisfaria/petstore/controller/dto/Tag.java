@@ -1,9 +1,9 @@
-package br.com.rodrigoluisfaria.petstore.dto;
+package br.com.rodrigoluisfaria.petstore.controller.dto;
 
 import lombok.Data;
 
 @Data
-public class Category {
+public class Tag {
 
     private String uuid;
     private String name;

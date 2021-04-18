@@ -1,46 +1,54 @@
 package br.com.rodrigoluisfaria.petstore.controller;
 
-import br.com.rodrigoluisfaria.petstore.dto.User;
+import br.com.rodrigoluisfaria.petstore.controller.dto.UserDto;
+import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
 import br.com.rodrigoluisfaria.petstore.service.LoginService;
 import br.com.rodrigoluisfaria.petstore.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserServiceImpl userService;
-
-    @Autowired
-    private LoginService loginService;
+    private final UserServiceImpl userService;
+    private final LoginService loginService;
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody @Valid User user) {
-        User createdUser = userService.create(user);
-        return ResponseEntity.status(201).body(createdUser);
+    public ResponseEntity<UserDto> create(@RequestBody @Valid UserDto user) {
+        UserEntity createdUser = userService.create(user.toUserEntity());
+        return ResponseEntity.status(201).body(createdUser.toUserDto());
     }
 
     @PostMapping("/createWithArray")
-    public ResponseEntity<User> createWithArray(@RequestBody List<User> users) {
-        userService.create(users);
+    public ResponseEntity<UserDto> createWithArray(@RequestBody List<UserDto> users) {
+        userService.create(
+                users.stream()
+                        .map(user -> user.toUserEntity())
+                        .collect(Collectors.toList())
+        );
         return ResponseEntity.status(201).build();
     }
 
     @PostMapping("/createWithList")
-    public ResponseEntity<User> createWithList(@RequestBody List<User> users) {
-        userService.create(users);
+    public ResponseEntity<UserDto> createWithList(@RequestBody List<UserDto> users) {
+        userService.create(
+                users.stream()
+                        .map(user -> user.toUserEntity())
+                        .collect(Collectors.toList())
+        );
         return ResponseEntity.status(201).build();
     }
 
     @GetMapping("/login")
-    public ResponseEntity<User> login(@RequestParam(name = "username") String username,
-                                      @RequestParam(name = "password") String password) {
+    public ResponseEntity<UserDto> login(@RequestParam(name = "username") String username,
+                                         @RequestParam(name = "password") String password) {
         boolean isLoginExecuted = loginService.doLogin(username, password);
         if (isLoginExecuted) {
             return ResponseEntity.ok().build();
@@ -49,25 +57,25 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<User> logout() {
+    public ResponseEntity<UserDto> logout() {
         loginService.doLogout();
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<User> findByName(@PathVariable String username) {
-        User user = userService.findByUsername(username);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserDto> findByName(@PathVariable String username) {
+        UserEntity user = userService.findByUsername(username);
+        return ResponseEntity.ok(user.toUserDto());
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<User> updateByName(@PathVariable String username, @RequestBody User user) {
-        userService.update(username, user);
+    public ResponseEntity<UserDto> updateByName(@PathVariable String username, @RequestBody UserDto user) {
+        userService.update(username, user.toUserEntity());
         return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity<User> deleteByName(@PathVariable String username) {
+    public ResponseEntity<UserDto> deleteByName(@PathVariable String username) {
         userService.delete(username);
         return ResponseEntity.status(200).build();
     }

@@ -1,21 +1,20 @@
 package br.com.rodrigoluisfaria.petstore.service;
 
-import br.com.rodrigoluisfaria.petstore.dto.User;
+import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
-    User create(User user);
+    UserEntity create(UserEntity user);
 
-    void create(List<User> users);
+    void create(List<UserEntity> users);
 
-    User findByUsername(String username);
+    UserEntity findByUsername(String username);
 
     void delete(String username);
 
-    void update(String username, User user);
+    void update(String username, UserEntity user);
 
-    User searchByUsernameAndPassword(String username, String password);
+    UserEntity searchByUsernameAndPassword(String username, String password);
 }

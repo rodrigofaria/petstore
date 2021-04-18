@@ -1,19 +1,17 @@
 package br.com.rodrigoluisfaria.petstore.repository;
 
-import br.com.rodrigoluisfaria.petstore.dto.User;
-
-import java.util.Optional;
+import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
 
 public interface UserRepository {
 
-    User create(User user);
+    UserEntity create(UserEntity user);
 
-    User findByUsername(String username);
+    UserEntity findByUsername(String username);
 
     void delete(String username);
 
-    void update(User user);
+    void update(UserEntity user);
 
-    User searchByUsernameAndPassword(String username, String password);
+    UserEntity searchByUsernameAndPassword(String username, String password);
 
 }

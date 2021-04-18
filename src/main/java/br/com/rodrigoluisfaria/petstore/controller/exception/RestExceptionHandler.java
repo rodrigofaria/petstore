@@ -1,5 +1,6 @@
 package br.com.rodrigoluisfaria.petstore.controller.exception;
 
+import br.com.rodrigoluisfaria.petstore.exception.BadCredentialsException;
 import br.com.rodrigoluisfaria.petstore.exception.UserNotFoundException;
 import br.com.rodrigoluisfaria.petstore.exception.UsernameAlreadyExistException;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,14 @@ public class RestExceptionHandler {
     public ResponseEntity<ApiError> handleUserNotFoundException(
             UserNotFoundException ex, WebRequest request) {
         String error = "User not found";
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, error, ex);
+        return ResponseEntity.badRequest().body(apiError);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ApiError> handleBadCredentialsException(
+            BadCredentialsException ex, WebRequest request) {
+        String error = "username/password are invalid";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, error, ex);
         return ResponseEntity.badRequest().body(apiError);
     }

@@ -1,6 +1,7 @@
 package br.com.rodrigoluisfaria.petstore.repository;
 
-import br.com.rodrigoluisfaria.petstore.dto.User;
+import br.com.rodrigoluisfaria.petstore.controller.dto.UserDto;
+import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
 import br.com.rodrigoluisfaria.petstore.exception.BadCredentialsException;
 import br.com.rodrigoluisfaria.petstore.exception.UserNotFoundException;
 import br.com.rodrigoluisfaria.petstore.exception.UsernameAlreadyExistException;
@@ -14,10 +15,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
-    private final Map<String, User> myDatabase = new HashMap<>();
+    private final Map<String, UserEntity> myDatabase = new HashMap<>();
 
-    public User create(User user) {
-        if (!myDatabase.values().contains(user)) {
+    public UserEntity create(UserEntity user) {
+        if (!usernameAlreadyExist(user.getUsername())) {
             myDatabase.put(user.getUuid(), user);
             return user;
         }
@@ -25,28 +26,34 @@ public class UserRepositoryImpl implements UserRepository {
         throw new UsernameAlreadyExistException(user.getUsername());
     }
 
-    public User findByUsername(String username) {
+    public UserEntity findByUsername(String username) {
         return myDatabase.values().stream()
                 .filter(u -> u.getUsername().equals(username))
                 .findFirst().orElseThrow(() -> new UserNotFoundException(username));
     }
 
     public void delete(String username) {
-        User user = findByUsername(username);
+        UserEntity user = findByUsername(username);
         myDatabase.remove(user.getUuid());
     }
 
-    public void update(User user) {
-        User oldUser = findByUsername(user.getUsername());
+    public void update(UserEntity user) {
+        UserEntity oldUser = findByUsername(user.getUsername());
         user.setUuid(oldUser.getUuid());
         myDatabase.put(user.getUuid(), user);
     }
 
-    public User searchByUsernameAndPassword(String username, String password) {
+    public UserEntity searchByUsernameAndPassword(String username, String password) {
         return myDatabase.values().stream()
                 .filter(user -> user.getUsername().equals(username) &&
                                 user.getPassword().equals(password))
                 .findFirst()
                 .orElseThrow(()-> new BadCredentialsException(username + " - " + password));
+    }
+
+    private boolean usernameAlreadyExist(String username) {
+        return myDatabase.values().stream()
+                .filter(u -> u.getUsername().equals(username))
+                .findFirst().isPresent();
     }
 }

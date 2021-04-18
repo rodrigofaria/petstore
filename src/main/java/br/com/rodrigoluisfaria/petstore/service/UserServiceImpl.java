@@ -1,12 +1,11 @@
 package br.com.rodrigoluisfaria.petstore.service;
 
-import br.com.rodrigoluisfaria.petstore.dto.User;
+import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
 import br.com.rodrigoluisfaria.petstore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,15 +13,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public User create(User user) {
+    public UserEntity create(UserEntity user) {
         return userRepository.create(user);
     }
 
-    public void create(List<User> users) {
+    public void create(List<UserEntity> users) {
         users.forEach(user -> create(user));
     }
 
-    public User findByUsername(String username) {
+    public UserEntity findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -30,12 +29,12 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(username);
     }
 
-    public void update(String username, User user) {
+    public void update(String username, UserEntity user) {
         user.setUsername(username);
         userRepository.update(user);
     }
 
-    public User searchByUsernameAndPassword(String username, String password) {
+    public UserEntity searchByUsernameAndPassword(String username, String password) {
         return userRepository.searchByUsernameAndPassword(username, password);
     }
 }
