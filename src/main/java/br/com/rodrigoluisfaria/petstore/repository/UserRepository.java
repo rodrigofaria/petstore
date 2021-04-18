@@ -8,12 +8,12 @@ public interface UserRepository {
 
     User create(User user);
 
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 
     void delete(String username);
 
     void update(User user);
 
-    Optional<User> searchByUsernameAndPassword(String username, String password);
+    User searchByUsernameAndPassword(String username, String password);
 
 }

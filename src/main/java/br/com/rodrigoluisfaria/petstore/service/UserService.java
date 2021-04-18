@@ -11,11 +11,11 @@ public interface UserService {
 
     void create(List<User> users);
 
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 
     void delete(String username);
 
     void update(String username, User user);
 
-    Optional<User> searchByUsernameAndPassword(String username, String password);
+    User searchByUsernameAndPassword(String username, String password);
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -57,29 +56,19 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<User> findByName(@PathVariable String username) {
-        Optional<User> optionalUser = userService.findByUsername(username);
-        return optionalUser.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        User user = userService.findByUsername(username);
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping("/{username}")
     public ResponseEntity<User> updateByName(@PathVariable String username, @RequestBody User user) {
-        Optional<User> optionalUser = userService.findByUsername(username);
-        if (optionalUser.isPresent()) {
-            userService.update(username, user);
-            return ResponseEntity.ok(user);
-        }
-
-        return ResponseEntity.notFound().build();
+        userService.update(username, user);
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/{username}")
     public ResponseEntity<User> deleteByName(@PathVariable String username) {
-        Optional<User> optionalUser = userService.findByUsername(username);
-        if (optionalUser.isPresent()) {
-            userService.delete(username);
-            return ResponseEntity.ok(optionalUser.get());
-        }
-
-        return ResponseEntity.notFound().build();
+        userService.delete(username);
+        return ResponseEntity.status(200).build();
     }
 }

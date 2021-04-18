@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         users.forEach(user -> create(user));
     }
 
-    public Optional<User> findByUsername(String username) {
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         userRepository.update(user);
     }
 
-    public Optional<User> searchByUsernameAndPassword(String username, String password) {
+    public User searchByUsernameAndPassword(String username, String password) {
         return userRepository.searchByUsernameAndPassword(username, password);
     }
 }
