@@ -11,9 +11,9 @@ public class ApiError {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private final LocalDateTime timestamp = LocalDateTime.now();
-    private String message;
-    private String debugMessage;
-    private HttpStatus status;
+    private final String message;
+    private final String debugMessage;
+    private final HttpStatus status;
 
     public ApiError(HttpStatus status, String message, Throwable ex) {
         this.status = status;

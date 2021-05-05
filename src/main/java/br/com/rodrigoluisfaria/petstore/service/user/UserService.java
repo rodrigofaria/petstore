@@ -1,4 +1,4 @@
-package br.com.rodrigoluisfaria.petstore.service;
+package br.com.rodrigoluisfaria.petstore.service.user;
 
 import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
 
@@ -10,11 +10,11 @@ public interface UserService {
 
     void create(List<UserEntity> users);
 
-    UserEntity findByUsername(String username);
+    void update(String username, UserEntity user);
 
     void delete(String username);
 
-    void update(String username, UserEntity user);
+    UserEntity findByUsername(String username);
 
     UserEntity searchByUsernameAndPassword(String username, String password);
 }

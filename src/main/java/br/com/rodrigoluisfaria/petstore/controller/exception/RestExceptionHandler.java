@@ -41,7 +41,7 @@ public class RestExceptionHandler {
     public ResponseEntity<ApiError> handleBadCredentialsException(
             BadCredentialsException ex, WebRequest request) {
         String error = "username/password are invalid";
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, error, ex);
-        return ResponseEntity.badRequest().body(apiError);
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, error, ex);
+        return ResponseEntity.status(401).body(apiError);
     }
 }

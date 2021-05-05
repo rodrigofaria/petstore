@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,42 +19,34 @@ public class UserRepositoryImpl implements UserRepository {
     private final Map<String, UserEntity> myDatabase = new HashMap<>();
 
     public UserEntity create(UserEntity user) {
-        if (!usernameAlreadyExist(user.getUsername())) {
-            myDatabase.put(user.getUuid(), user);
-            return user;
-        }
-
-        throw new UsernameAlreadyExistException(user.getUsername());
+        myDatabase.put(user.getUuid(), user);
+        return user;
     }
 
-    public UserEntity findByUsername(String username) {
+    public Optional<UserEntity> findByUsername(String username) {
         return myDatabase.values().stream()
                 .filter(u -> u.getUsername().equals(username))
-                .findFirst().orElseThrow(() -> new UserNotFoundException(username));
+                .findFirst();
     }
 
-    public void delete(String username) {
-        UserEntity user = findByUsername(username);
-        myDatabase.remove(user.getUuid());
+    public void delete(String uuid) {
+        myDatabase.remove(uuid);
     }
 
     public void update(UserEntity user) {
-        UserEntity oldUser = findByUsername(user.getUsername());
-        user.setUuid(oldUser.getUuid());
         myDatabase.put(user.getUuid(), user);
     }
 
-    public UserEntity searchByUsernameAndPassword(String username, String password) {
+    public Optional<UserEntity> searchByUsernameAndPassword(String username, String password) {
         return myDatabase.values().stream()
                 .filter(user -> user.getUsername().equals(username) &&
-                                user.getPassword().equals(password))
-                .findFirst()
-                .orElseThrow(()-> new BadCredentialsException(username + " - " + password));
+                        user.getPassword().equals(password))
+                .findFirst();
     }
 
-    private boolean usernameAlreadyExist(String username) {
+    public Optional<UserEntity> usernameAlreadyExist(String username) {
         return myDatabase.values().stream()
                 .filter(u -> u.getUsername().equals(username))
-                .findFirst().isPresent();
+                .findFirst();
     }
 }
