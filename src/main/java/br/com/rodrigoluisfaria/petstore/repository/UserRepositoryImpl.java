@@ -1,10 +1,6 @@
 package br.com.rodrigoluisfaria.petstore.repository;
 
-import br.com.rodrigoluisfaria.petstore.controller.dto.UserDto;
 import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
-import br.com.rodrigoluisfaria.petstore.exception.BadCredentialsException;
-import br.com.rodrigoluisfaria.petstore.exception.UserNotFoundException;
-import br.com.rodrigoluisfaria.petstore.exception.UsernameAlreadyExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
