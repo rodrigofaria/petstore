@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void create(List<UserEntity> users) {
-        users.forEach(user -> create(user));
+        users.forEach(this::create);
     }
 
     public UserEntity findByUsername(String username) {

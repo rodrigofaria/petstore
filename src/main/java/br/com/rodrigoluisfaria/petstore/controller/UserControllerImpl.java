@@ -5,7 +5,6 @@ import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
 import br.com.rodrigoluisfaria.petstore.service.login.LoginService;
 import br.com.rodrigoluisfaria.petstore.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class UserControllerImpl implements UserController {
     public void createWithArray(List<UserDto> users) {
         userService.create(
                 users.stream()
-                        .map(user -> user.toUserEntity())
+                        .map(UserDto::toUserEntity)
                         .collect(Collectors.toList())
         );
     }
@@ -38,7 +37,7 @@ public class UserControllerImpl implements UserController {
     public void createWithList(List<UserDto> users) {
         userService.create(
                 users.stream()
-                        .map(user -> user.toUserEntity())
+                        .map(UserDto::toUserEntity)
                         .collect(Collectors.toList())
         );
     }
@@ -49,7 +48,6 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    //@ResponseStatus(HttpStatus.)
     public void logout() {
         loginService.doLogout();
     }
