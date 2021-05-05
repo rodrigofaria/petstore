@@ -10,14 +10,14 @@ import java.util.UUID;
 public class UserDto {
 
     @NotNull
-    private String username;
-    private String firstName;
-    private String lastName;
-    private String email;
+    String username;
+    String firstName;
+    String lastName;
+    String email;
     @NotNull
-    private String password;
-    private String phone;
-    private Integer userStatus;
+    String password;
+    String phone;
+    Integer userStatus;
 
     public UserEntity toUserEntity() {
         return new UserEntity(UUID.randomUUID().toString(),
