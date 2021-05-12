@@ -18,12 +18,14 @@ public class UserControllerImpl implements UserController {
     private final UserService userService;
     private final LoginService loginService;
 
+    @PostMapping
     @Override
     public UserDto create(UserDto user) {
         UserEntity createdUser = userService.create(user.toUserEntity());
         return createdUser.toUserDto();
     }
 
+    @PostMapping("/createWithArray")
     @Override
     public void createWithArray(List<UserDto> users) {
         userService.create(
@@ -33,6 +35,7 @@ public class UserControllerImpl implements UserController {
         );
     }
 
+    @PostMapping("/createWithList")
     @Override
     public void createWithList(List<UserDto> users) {
         userService.create(
@@ -42,28 +45,33 @@ public class UserControllerImpl implements UserController {
         );
     }
 
+    @GetMapping("/login")
     @Override
     public void login(String username, String password) {
         loginService.doLogin(username, password);
     }
 
+    @GetMapping("/logout")
     @Override
     public void logout() {
         loginService.doLogout();
     }
 
+    @GetMapping("/{username}")
     @Override
     public UserDto findByName(String username) {
         UserEntity user = userService.findByUsername(username);
         return user.toUserDto();
     }
 
+    @PutMapping("/{username}")
     @Override
     public UserDto updateByName(String username, UserDto user) {
         userService.update(username, user.toUserEntity());
         return user;
     }
 
+    @DeleteMapping("/{username}")
     @Override
     public void deleteByName(@PathVariable String username) {
         userService.delete(username);
