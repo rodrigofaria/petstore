@@ -1,9 +1,9 @@
 package br.com.rodrigoluisfaria.petstore.service.user;
 
 import br.com.rodrigoluisfaria.petstore.entity.UserEntity;
-import br.com.rodrigoluisfaria.petstore.exception.BadCredentialsException;
-import br.com.rodrigoluisfaria.petstore.exception.UserNotFoundException;
-import br.com.rodrigoluisfaria.petstore.exception.UsernameAlreadyExistException;
+import br.com.rodrigoluisfaria.petstore.service.user.exception.BadCredentialsException;
+import br.com.rodrigoluisfaria.petstore.service.user.exception.UserNotFoundException;
+import br.com.rodrigoluisfaria.petstore.service.user.exception.UsernameAlreadyExistException;
 import br.com.rodrigoluisfaria.petstore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

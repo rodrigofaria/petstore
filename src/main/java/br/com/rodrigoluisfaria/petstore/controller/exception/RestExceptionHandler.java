@@ -1,8 +1,8 @@
 package br.com.rodrigoluisfaria.petstore.controller.exception;
 
-import br.com.rodrigoluisfaria.petstore.exception.BadCredentialsException;
-import br.com.rodrigoluisfaria.petstore.exception.UserNotFoundException;
-import br.com.rodrigoluisfaria.petstore.exception.UsernameAlreadyExistException;
+import br.com.rodrigoluisfaria.petstore.service.user.exception.BadCredentialsException;
+import br.com.rodrigoluisfaria.petstore.service.user.exception.UserNotFoundException;
+import br.com.rodrigoluisfaria.petstore.service.user.exception.UsernameAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
