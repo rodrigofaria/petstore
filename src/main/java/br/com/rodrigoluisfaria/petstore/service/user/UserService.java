@@ -1,6 +1,6 @@
 package br.com.rodrigoluisfaria.petstore.service.user;
 
-import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
+import br.com.rodrigoluisfaria.petstore.entity.UserEntity;
 
 import java.util.List;
 

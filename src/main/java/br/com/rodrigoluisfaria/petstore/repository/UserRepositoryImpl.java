@@ -1,6 +1,6 @@
 package br.com.rodrigoluisfaria.petstore.repository;
 
-import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
+import br.com.rodrigoluisfaria.petstore.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

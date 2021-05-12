@@ -1,7 +1,7 @@
 package br.com.rodrigoluisfaria.petstore.controller;
 
 import br.com.rodrigoluisfaria.petstore.controller.dto.UserDto;
-import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
+import br.com.rodrigoluisfaria.petstore.entity.UserEntity;
 import br.com.rodrigoluisfaria.petstore.service.login.LoginService;
 import br.com.rodrigoluisfaria.petstore.service.user.UserService;
 import lombok.RequiredArgsConstructor;

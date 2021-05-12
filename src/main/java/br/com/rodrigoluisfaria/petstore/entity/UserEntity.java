@@ -1,4 +1,4 @@
-package br.com.rodrigoluisfaria.petstore.controller.entity;
+package br.com.rodrigoluisfaria.petstore.entity;
 
 import br.com.rodrigoluisfaria.petstore.controller.dto.UserDto;
 import lombok.AllArgsConstructor;
