@@ -37,12 +37,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity findByUsername(String username) throws AbstractUserServiceException {
-        Optional<UserEntity> user = userRepository.findByUsername(username);
-        if (user.isPresent()) {
-            return user.get();
-        }
-
-        throw new UserNotFoundException(username);
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 
     @Override
@@ -61,11 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity searchByUsernameAndPassword(String username, String password) throws AbstractUserServiceException {
-        Optional<UserEntity> user = userRepository.searchByUsernameAndPassword(username, password);
-        if (user.isPresent()) {
-            return user.get();
-        }
-
-        throw new BadCredentialsException(username + " - " + password);
+        return userRepository.searchByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new BadCredentialsException(username + " - " + password));
     }
 }
