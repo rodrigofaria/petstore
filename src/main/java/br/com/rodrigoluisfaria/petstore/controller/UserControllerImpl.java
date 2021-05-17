@@ -24,7 +24,7 @@ public class UserControllerImpl implements UserController {
     @PostMapping
     @Override
     public UserDto create(UserDto user) throws AbstractUserServiceException {
-        log.debug("Creating user: " + user);
+        log.debug("Creating user: {}", user);
         UserEntity createdUser = userService.create(user.toUserEntity());
         return createdUser.toUserDto();
     }
@@ -32,7 +32,7 @@ public class UserControllerImpl implements UserController {
     @PostMapping("/createWithArray")
     @Override
     public void createWithArray(List<UserDto> users) throws AbstractUserServiceException {
-        log.debug("Creating (" + users.size() + ") users");
+        log.debug("Creating ({}) users", users.size());
         userService.create(
                 users.stream()
                         .map(UserDto::toUserEntity)
@@ -43,7 +43,7 @@ public class UserControllerImpl implements UserController {
     @PostMapping("/createWithList")
     @Override
     public void createWithList(List<UserDto> users) throws AbstractUserServiceException {
-        log.debug("Creating (" + users.size() + ") users");
+        log.debug("Creating ({}) users", users.size());
         userService.create(
                 users.stream()
                         .map(UserDto::toUserEntity)
@@ -54,7 +54,7 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/login")
     @Override
     public void login(String username, String password) throws AbstractUserServiceException {
-        log.debug("Executing login. username: [" + username + "] & password: [" + password + "]");
+        log.debug("Executing login. username: [{}] & password: [{}]", username, password);
         loginService.doLogin(username, password);
     }
 
@@ -68,7 +68,7 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/{username}")
     @Override
     public UserDto findByName(String username) throws AbstractUserServiceException {
-        log.debug("Finding user by username: [" + username + "]");
+        log.debug("Finding user by username: [{}]", username);
         UserEntity user = userService.findByUsername(username);
         return user.toUserDto();
     }
@@ -76,7 +76,7 @@ public class UserControllerImpl implements UserController {
     @PutMapping("/{username}")
     @Override
     public UserDto updateByName(String username, UserDto user) throws AbstractUserServiceException {
-        log.debug("Update user by username: [" + username + "] values = " + user);
+        log.debug("Update user by username: [{}] values = {}", username, user);
         userService.update(username, user.toUserEntity());
         return user;
     }
@@ -84,7 +84,7 @@ public class UserControllerImpl implements UserController {
     @DeleteMapping("/{username}")
     @Override
     public void deleteByName(@PathVariable String username) throws AbstractUserServiceException {
-        log.debug("Delete user by username: [" + username + "]");
+        log.debug("Delete user by username: [{}]", username);
         userService.delete(username);
     }
 }
