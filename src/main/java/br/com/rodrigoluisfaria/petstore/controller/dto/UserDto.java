@@ -1,6 +1,6 @@
 package br.com.rodrigoluisfaria.petstore.controller.dto;
 
-import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
+import br.com.rodrigoluisfaria.petstore.entity.UserEntity;
 import lombok.Value;
 
 import javax.validation.constraints.NotNull;

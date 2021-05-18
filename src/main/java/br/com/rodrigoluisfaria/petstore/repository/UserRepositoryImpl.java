@@ -1,6 +1,6 @@
 package br.com.rodrigoluisfaria.petstore.repository;
 
-import br.com.rodrigoluisfaria.petstore.controller.entity.UserEntity;
+import br.com.rodrigoluisfaria.petstore.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -35,8 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     public Optional<UserEntity> searchByUsernameAndPassword(String username, String password) {
         return myDatabase.values().stream()
-                .filter(user -> user.getUsername().equals(username) &&
-                        user.getPassword().equals(password))
+                .filter(user -> sameUsernameAndPassword(user, username, password))
                 .findFirst();
     }
 
@@ -44,5 +43,10 @@ public class UserRepositoryImpl implements UserRepository {
         return myDatabase.values().stream()
                 .filter(u -> u.getUsername().equals(username))
                 .findFirst();
+    }
+
+    private boolean sameUsernameAndPassword(UserEntity user, String username, String password) {
+        return user.getUsername().equals(username) &&
+                user.getPassword().equals(password);
     }
 }
