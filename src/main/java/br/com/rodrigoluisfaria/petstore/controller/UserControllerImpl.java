@@ -61,7 +61,7 @@ public class UserControllerImpl implements UserController {
     @GetMapping("/logout")
     @Override
     public void logout() {
-        log.debug("Executing logout");
+        log.info("Executing logout");
         loginService.doLogout();
     }
 

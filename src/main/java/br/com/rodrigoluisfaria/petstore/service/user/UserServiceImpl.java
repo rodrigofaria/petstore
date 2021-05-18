@@ -7,6 +7,7 @@ import br.com.rodrigoluisfaria.petstore.service.user.exception.UserNotFoundExcep
 import br.com.rodrigoluisfaria.petstore.service.user.exception.UsernameAlreadyExistException;
 import br.com.rodrigoluisfaria.petstore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -21,7 +23,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity create(UserEntity user) throws AbstractUserServiceException {
         Optional<UserEntity> existUser = userRepository.usernameAlreadyExist(user.getUsername());
+        log.debug("Checking username: {}", existUser);
+
         if (existUser.isEmpty()) {
+            log.info("Creating user");
             return userRepository.create(user);
         }
 
@@ -44,6 +49,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(String username) throws AbstractUserServiceException {
         UserEntity user = findByUsername(username);
+        log.info("Deleting user");
+        log.debug("User: {}", user);
         userRepository.delete(user.getUuid());
     }
 
@@ -52,6 +59,9 @@ public class UserServiceImpl implements UserService {
         UserEntity oldUser = findByUsername(username);
         user.setUuid(oldUser.getUuid());
         user.setUsername(username);
+        log.info("Updating user");
+        log.debug("User before update process: {}", oldUser);
+        log.debug("User after update process: {}", user);
         userRepository.update(user);
     }
 
